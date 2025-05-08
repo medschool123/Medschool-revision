@@ -3,37 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Med School Snakes & Ladders</title>
-<link rel="stylesheet" href="style.css" />
-<script src="script.js"></script>
+  <title>Peritoneum Quest - Snakes and Ladders</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>🩺 Med School Snakes & Ladders</h1>
-  <label for="playerCount">Number of Players:</label>
-  <select id="playerCount">
-    <option value="1">1</option>
-    <option value="2" selected>2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-  </select>
-  <button id="startGameBtn">Start Game</button>
+  <h1>Peritoneum Quest - Snakes and Ladders</h1>
+  <div class="board" id="board"></div>
+  <button id="rollDice">Roll Dice 🎲</button>
 
-  <div id="game" class="hidden">
-    <div id="board"></div>
-    <div id="controls">
-      <h2 id="currentPlayer">Player 1's Turn</h2>
-      <button id="rollBtn">Roll Dice</button>
-      <div id="dice">🎲</div>
-      <div id="questionBox" class="hidden">
-        <p id="questionText"></p>
-        <div id="answerOptions"></div>
-      </div>
-      <p id="message"></p>
-    </div>
+  <div class="overlay" id="overlay"></div>
+  <div class="question-popup" id="questionPopup">
+    <h2 id="questionText"></h2>
+    <div id="options"></div>
+    <button id="closePopup">Close</button>
   </div>
 
-  <script src="./script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
