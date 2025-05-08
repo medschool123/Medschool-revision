@@ -1,0 +1,117 @@
+[
+    {
+        "question": "Which structure separates the greater and lesser sacs of the peritoneal cavity?",
+        "options": [
+            "Mesentery",
+            "Epiploic foramen",
+            "Rectus sheath",
+            "Inguinal canal"
+        ],
+        "answer": "Epiploic foramen",
+        "explanation": "The epiploic foramen is the opening that connects the greater and lesser sacs."
+    },
+    {
+        "question": "True or False: The lesser sac is located anterior to the stomach.",
+        "options": [
+            "True",
+            "False"
+        ],
+        "answer": "False",
+        "explanation": "The lesser sac is located posterior to the stomach."
+    },
+    {
+        "question": "Arrange the layers of the anterolateral abdominal wall from superficial to deep.",
+        "options": [
+            "Skin",
+            "Superficial fascia",
+            "External oblique",
+            "Internal oblique",
+            "Transversus abdominis",
+            "Transversalis fascia",
+            "Parietal peritoneum"
+        ],
+        "answer": [
+            "Skin",
+            "Superficial fascia",
+            "External oblique",
+            "Internal oblique",
+            "Transversus abdominis",
+            "Transversalis fascia",
+            "Parietal peritoneum"
+        ],
+        "explanation": "The correct order from superficial to deep is: Skin, Superficial fascia, External oblique, Internal oblique, Transversus abdominis, Transversalis fascia, Parietal peritoneum."
+    },
+    {
+        "question": "Which artery supplies blood to the anterolateral abdominal wall?",
+        "options": [
+            "Superior epigastric artery",
+            "Inferior epigastric artery",
+            "Femoral artery",
+            "Aorta"
+        ],
+        "answer": "Superior epigastric artery",
+        "explanation": "The superior epigastric artery supplies blood to the anterolateral abdominal wall."
+    },
+    {
+        "question": "True or False: The mesentery is a double layer of peritoneum.",
+        "options": [
+            "True",
+            "False"
+        ],
+        "answer": "True",
+        "explanation": "The mesentery is indeed a double layer of peritoneum that supports the intestines."
+    },
+    {
+        "question": "Which structure is NOT part of the anterolateral abdominal wall?",
+        "options": [
+            "Rectus abdominis",
+            "External oblique",
+            "Internal oblique",
+            "Diaphragm"
+        ],
+        "answer": "Diaphragm",
+        "explanation": "The diaphragm is not part of the anterolateral abdominal wall."
+    },
+    {
+        "question": "Which structure forms the posterior boundary of the inguinal canal?",
+        "options": [
+            "Inguinal ligament",
+            "Transversalis fascia",
+            "External oblique",
+            "Internal oblique"
+        ],
+        "answer": "Transversalis fascia",
+        "explanation": "The transversalis fascia forms the posterior boundary of the inguinal canal."
+    },
+    {
+        "question": "True or False: The greater sac is located posterior to the stomach.",
+        "options": [
+            "True",
+            "False"
+        ],
+        "answer": "False",
+        "explanation": "The greater sac is located anterior to the stomach."
+    },
+    {
+        "question": "Which structure is responsible for the rotation of the gut during development?",
+        "options": [
+            "Mesentery",
+            "Epiploic foramen",
+            "Midgut",
+            "Rectus sheath"
+        ],
+        "answer": "Midgut",
+        "explanation": "The midgut is responsible for the rotation of the gut during development."
+    },
+    {
+        "question": "Which structure is NOT part of the peritoneum?",
+        "options": [
+            "Greater omentum",
+            "Lesser omentum",
+            "Mesentery",
+            "Rectus sheath"
+        ],
+        "answer": "Rectus sheath",
+        "explanation": "The rectus sheath is not part of the peritoneum."
+    }
+]
