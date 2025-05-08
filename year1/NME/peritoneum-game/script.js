@@ -1,4 +1,3 @@
-
 const board = document.getElementById('board');
 const rollDice = document.getElementById('rollDice');
 const questionPopup = document.getElementById('questionPopup');
@@ -57,11 +56,9 @@ function showQuestion() {
     btn.textContent = opt;
     btn.onclick = () => {
       if (opt === q.answer) {
-        alert('✅ Correct!
-' + q.explanation);
+        alert('✅ Correct!\n' + q.explanation);
       } else {
-        alert('❌ Incorrect.
-' + q.explanation);
+        alert('❌ Incorrect.\n' + q.explanation);
         playerPosition -= 3;
         if (playerPosition < 0) playerPosition = 0;
         movePlayer();
