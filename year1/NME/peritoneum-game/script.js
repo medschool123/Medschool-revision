@@ -9,9 +9,8 @@ const submitBtn = document.getElementById('submit');
 
 let playerPosition = 0;
 let currentQuestion = null;
-let isOnSpecialTile = false;
 
-// ALL YOUR MEDICAL QUESTIONS (30 included)
+// All your medical questions
 const questions = [
     {
         "question": "Which structure separates the greater and lesser sacs of the peritoneal cavity?",
@@ -129,7 +128,7 @@ const questions = [
     }
 ];
 
-// Define snakes and ladders positions
+// Define snakes and ladders positions (start: end)
 const snakes = {
     16: 6,
     47: 26,
@@ -157,25 +156,24 @@ const ladders = {
 
 // Create the game board
 function createBoard() {
-    for (let i = 0; i < 100; i++) {
-        const tile = document.createElement('div');
-        tile.className = 'tile';
-        tile.textContent = i + 1;
-        tile.id = `tile-${i}`;
-        
-        // Mark snake tiles
-        if (snakes[i]) {
-            tile.classList.add('snake');
-            tile.innerHTML += '<div class="snake-mark">🐍</div>';
+    // Create 100 tiles in reverse order (snakes and ladders board)
+    for (let row = 9; row >= 0; row--) {
+        for (let col = 0; col < 10; col++) {
+            const tileNum = row % 2 === 0 ? (9 - row) * 10 + col : (9 - row) * 10 + (9 - col);
+            const tile = document.createElement('div');
+            tile.className = 'tile';
+            tile.textContent = tileNum + 1;
+            tile.id = `tile-${tileNum}`;
+            
+            if (snakes[tileNum]) {
+                tile.classList.add('snake');
+            }
+            if (ladders[tileNum]) {
+                tile.classList.add('ladder');
+            }
+            
+            board.appendChild(tile);
         }
-        
-        // Mark ladder tiles
-        if (ladders[i]) {
-            tile.classList.add('ladder');
-            tile.innerHTML += '<div class="ladder-mark">🪜</div>';
-        }
-        
-        board.appendChild(tile);
     }
     updatePlayerPosition();
 }
@@ -206,11 +204,11 @@ rollBtn.onclick = function() {
     
     updatePlayerPosition();
     
-    // Check for snake or ladder
+    // Check for snake or ladder after move
     setTimeout(() => {
-        if (snakes[playerPosition]) {
+        if (snakes[playerPosition] !== undefined) {
             showQuestion(true, playerPosition, snakes[playerPosition]);
-        } else if (ladders[playerPosition]) {
+        } else if (ladders[playerPosition] !== undefined) {
             showQuestion(false, playerPosition, ladders[playerPosition]);
         }
     }, 500);
@@ -218,7 +216,6 @@ rollBtn.onclick = function() {
 
 // Show question for snake or ladder
 function showQuestion(isSnake, currentPos, targetPos) {
-    isOnSpecialTile = true;
     const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
     currentQuestion = randomQuestion;
     
@@ -262,7 +259,6 @@ function showQuestion(isSnake, currentPos, targetPos) {
         }
         
         questionBox.style.display = 'none';
-        isOnSpecialTile = false;
         updatePlayerPosition();
     };
     
