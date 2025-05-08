@@ -1,4 +1,3 @@
-
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(to right, #e0f7fa, #fce4ec);
@@ -38,23 +37,20 @@ h1 {
   line-height: 1.2;
 }
 
-.cell::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.2;
-}
-
 .cell.snake::after {
-  background-image: url('https://em-content.zobj.net/thumbs/240/apple/354/snake_1f40d.png');
+  content: '🐍';
+  position: absolute;
+  font-size: 20px;
+  top: 2px;
+  right: 2px;
 }
 
 .cell.ladder::after {
-  background-image: url('https://em-content.zobj.net/thumbs/240/apple/354/ladder_1fa9c.png');
+  content: '🪜';
+  position: absolute;
+  font-size: 20px;
+  bottom: 2px;
+  left: 2px;
 }
 
 .player {
@@ -64,6 +60,7 @@ h1 {
   background-color: #ff4081;
   position: absolute;
   z-index: 10;
+  transition: all 0.3s ease;
 }
 
 button {
