@@ -1,73 +1,83 @@
-/* Simple board styles */
-#game-container {
-    width: 600px;
-    height: 600px;
-    margin: 0 auto;
-    position: relative;
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
 }
 
-#game-board {
-    width: 100%;
-    height: 100%;
-    background-color: #f0f0f0;
+#game-container {
+    width: 500px;
+    height: 500px;
+    margin: 20px auto;
     position: relative;
+    background-color: #f0f0f0;
     border: 2px solid #333;
 }
 
+#board {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
 .tile {
-    width: 60px;
-    height: 60px;
-    position: absolute;
+    border: 1px solid #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    border: 1px solid #ccc;
+    font-size: 12px;
     background-color: white;
+    position: relative;
 }
 
-.player {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+#player {
+    width: 20px;
+    height: 20px;
     background-color: red;
+    border-radius: 50%;
     position: absolute;
+    transition: all 0.5s;
     z-index: 10;
 }
 
-/* SIMPLE SNAKES (green squiggly lines) */
 .snake {
-    position: absolute;
-    background: repeating-linear-gradient(
-        to right,
-        #4CAF50,
-        #4CAF50 10px,
-        #45a049 10px,
-        #45a049 20px
-    );
-    z-index: 5;
-    border-radius: 20px;
+    background-color: #ffcccc;
 }
 
-/* SIMPLE LADDERS (brown with rungs) */
 .ladder {
-    position: absolute;
-    background: linear-gradient(
-        90deg,
-        #8B4513 0%,
-        #8B4513 20%,
-        #FFF 20%,
-        #FFF 25%,
-        #8B4513 25%,
-        #8B4513 45%,
-        #FFF 45%,
-        #FFF 50%,
-        #8B4513 50%,
-        #8B4513 70%,
-        #FFF 70%,
-        #FFF 75%,
-        #8B4513 75%,
-        #8B4513 100%
-    );
-    z-index: 5;
+    background-color: #ccffcc;
+}
+
+#question-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 2px solid #333;
+    z-index: 100;
+    width: 300px;
+}
+
+#roll-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#roll-btn:hover {
+    background-color: #45a049;
+}
+
+.option-btn {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    cursor: pointer;
 }
