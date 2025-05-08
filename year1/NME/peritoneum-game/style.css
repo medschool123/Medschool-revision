@@ -1,0 +1,19 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  width: 400px;
+  margin: 20px auto;
+}
+
+#board div {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
