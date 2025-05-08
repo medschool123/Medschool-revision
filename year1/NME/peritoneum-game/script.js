@@ -1,73 +1,57 @@
+let loadedQuestions = [];
 
-const board = document.getElementById('board');
-const rollDice = document.getElementById('rollDice');
-const questionPopup = document.getElementById('questionPopup');
-const questionText = document.getElementById('questionText');
-const options = document.getElementById('options');
-const closePopup = document.getElementById('closePopup');
-const overlay = document.getElementById('overlay');
-
-let playerPosition = 0;
-const player = document.createElement('div');
-player.classList.add('player');
-
-// Create board
-for (let i = 99; i >= 0; i--) {
-  const cell = document.createElement('div');
-  cell.classList.add('cell');
-  cell.textContent = i + 1;
-  board.appendChild(cell);
-}
-board.children[99].appendChild(player);
-
-// Load questions
-let questions = [];
-fetch('questions.json')
-  .then(res => res.json())
-  .then(data => questions = data);
-
-// Dice roll
-rollDice.addEventListener('click', () => {
-  const roll = Math.floor(Math.random() * 6) + 1;
-  playerPosition += roll;
-  if (playerPosition >= 99) {
-    playerPosition = 99;
-    alert("🎉 You've completed the Peritoneum Quest!");
-  }
-  movePlayer();
-  if ((playerPosition + 1) % 5 === 0) {
-    showQuestion();
-  }
-});
-
-function movePlayer() {
-  const cells = document.querySelectorAll('.cell');
-  cells.forEach(cell => {
-    if (cell.contains(player)) cell.removeChild(player);
-  });
-  cells[99 - playerPosition].appendChild(player);
+async function loadQuestions() {
+  const res = await fetch('questions.json');  // File must be renamed to questions.json and placed in the root/public folder
+  loadedQuestions = await res.json();
 }
 
-function showQuestion() {
-  const q = questions[Math.floor(Math.random() * questions.length)];
-  questionText.textContent = q.question;
-  options.innerHTML = '';
-  q.options.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.textContent = opt;
-    btn.onclick = () => {
-      alert(opt === q.answer ? '✅ Correct!\n' + q.explanation : '❌ Incorrect.\n' + q.explanation);
-      hidePopup();
+function askQuestion() {
+  const q = loadedQuestions[Math.floor(Math.random() * loadedQuestions.length)];
+
+  questionText.innerHTML = q.question;
+  questionBox.innerHTML = `<p>${q.question}</p>`;
+
+  // Handle options
+  if (Array.isArray(q.options)) {
+    q.options.forEach(option => {
+      const btn = document.createElement('button');
+      btn.textContent = option;
+      btn.addEventListener('click', () => {
+        const correct = Array.isArray(q.answer)
+          ? JSON.stringify(q.answer) === JSON.stringify(q.options)
+          : option === q.answer;
+
+        if (correct) {
+          message.textContent = "✅ Correct!";
+          questionBox.classList.add('hidden');
+          movePlayer();
+        } else {
+          message.textContent = `❌ Incorrect. Correct answer: ${q.answer}`;
+          questionBox.classList.add('hidden');
+          nextTurn();
+        }
+      });
+      questionBox.appendChild(btn);
+    });
+  } else {
+    const input = document.createElement('input');
+    input.placeholder = "Your answer...";
+    const submit = document.createElement('button');
+    submit.textContent = "Submit Answer";
+    submit.onclick = () => {
+      if (input.value.trim().toLowerCase() === q.answer.toLowerCase()) {
+        message.textContent = "✅ Correct!";
+        questionBox.classList.add('hidden');
+        movePlayer();
+      } else {
+        message.textContent = `❌ Incorrect. Correct answer: ${q.answer}`;
+        questionBox.classList.add('hidden');
+        nextTurn();
+      }
     };
-    options.appendChild(btn);
-  });
-  overlay.style.display = 'block';
-  questionPopup.style.display = 'block';
-}
+    questionBox.appendChild(input);
+    questionBox.appendChild(submit);
+  }
 
-function hidePopup() {
-  questionPopup.style.display = 'none';
-  overlay.style.display = 'none';
+  questionBox.classList.remove('hidden');
 }
-
-closePopup.addEventListener('click', hidePopup);
