@@ -1,57 +1,79 @@
-let loadedQuestions = [];
+const board = document.getElementById('board');
+const rollDice = document.getElementById('rollDice');
+const questionPopup = document.getElementById('questionPopup');
+const questionText = document.getElementById('questionText');
+const options = document.getElementById('options');
+const closePopup = document.getElementById('closePopup');
+const overlay = document.getElementById('overlay');
 
-async function loadQuestions() {
-  const res = await fetch('./questions.json');
-  loadedQuestions = await res.json();
+let playerPosition = 0;
+const player = document.createElement('div');
+player.classList.add('player');
+
+// Create board
+for (let i = 99; i >= 0; i--) {
+  const cell = document.createElement('div');
+  cell.classList.add('cell');
+  if ((i + 1) % 9 === 0) cell.innerHTML += ' 🐍';
+  if ((i + 1) % 10 === 0) cell.innerHTML += ' 🪜';
+  cell.textContent = (i + 1) + cell.innerHTML;
+  board.appendChild(cell);
 }
+board.children[99].appendChild(player);
 
-function askQuestion() {
-  const q = loadedQuestions[Math.floor(Math.random() * loadedQuestions.length)];
+// Load questions
+let questions = [];
+fetch('questions.json')
+  .then(res => res.json())
+  .then(data => questions = data);
 
-  questionText.innerHTML = q.question;
-  questionBox.innerHTML = `<p>${q.question}</p>`;
-
-  // Handle options
-  if (Array.isArray(q.options)) {
-    q.options.forEach(option => {
-      const btn = document.createElement('button');
-      btn.textContent = option;
-      btn.addEventListener('click', () => {
-        const correct = Array.isArray(q.answer)
-          ? JSON.stringify(q.answer) === JSON.stringify(q.options)
-          : option === q.answer;
-
-        if (correct) {
-          message.textContent = "✅ Correct!";
-          questionBox.classList.add('hidden');
-          movePlayer();
-        } else {
-          message.textContent = `❌ Incorrect. Correct answer: ${q.answer}`;
-          questionBox.classList.add('hidden');
-          nextTurn();
-        }
-      });
-      questionBox.appendChild(btn);
-    });
-  } else {
-    const input = document.createElement('input');
-    input.placeholder = "Your answer...";
-    const submit = document.createElement('button');
-    submit.textContent = "Submit Answer";
-    submit.onclick = () => {
-      if (input.value.trim().toLowerCase() === q.answer.toLowerCase()) {
-        message.textContent = "✅ Correct!";
-        questionBox.classList.add('hidden');
-        movePlayer();
-      } else {
-        message.textContent = `❌ Incorrect. Correct answer: ${q.answer}`;
-        questionBox.classList.add('hidden');
-        nextTurn();
-      }
-    };
-    questionBox.appendChild(input);
-    questionBox.appendChild(submit);
+// Dice roll
+rollDice.addEventListener('click', () => {
+  const roll = Math.floor(Math.random() * 6) + 1;
+  playerPosition += roll;
+  if (playerPosition >= 99) {
+    playerPosition = 99;
+    alert("🎉 You've completed the Peritoneum Quest!");
   }
+  movePlayer();
+  showQuestion();
+});
 
-  questionBox.classList.remove('hidden');
+function movePlayer() {
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach(cell => {
+    if (cell.contains(player)) cell.removeChild(player);
+  });
+  cells[99 - playerPosition].appendChild(player);
 }
+
+function showQuestion() {
+  const q = questions[Math.floor(Math.random() * questions.length)];
+  questionText.textContent = q.question;
+  options.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.textContent = opt;
+    btn.onclick = () => {
+      if (opt === q.answer) {
+        alert('✅ Correct!\n' + q.explanation);
+      } else {
+        alert('❌ Incorrect.\n' + q.explanation);
+        playerPosition -= 3;
+        if (playerPosition < 0) playerPosition = 0;
+        movePlayer();
+      }
+      hidePopup();
+    };
+    options.appendChild(btn);
+  });
+  overlay.style.display = 'block';
+  questionPopup.style.display = 'block';
+}
+
+function hidePopup() {
+  questionPopup.style.display = 'none';
+  overlay.style.display = 'none';
+}
+
+closePopup.addEventListener('click', hidePopup);
