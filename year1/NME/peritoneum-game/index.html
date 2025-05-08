@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peritoneum Revision Game</title>
-    <link rel="stylesheet" href="styles.css"> <!-- This links to your external CSS -->
+    <title>Medical Snakes & Ladders</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <h1>Medical School Revision Game</h1>
     <div id="game-container">
-        <div id="game-board"></div>
-        <div id="player" class="player"></div>
+        <div id="board"></div>
+        <div id="player"></div>
     </div>
-    
-    <div id="question-modal">
-        <h2 id="question-text"></h2>
-        <div id="options-container"></div>
-        <button id="submit-answer">Submit</button>
+    <button id="roll-btn">Roll Dice</button>
+    <div id="question-box" style="display:none;">
+        <h3 id="question"></h3>
+        <div id="options"></div>
+        <button id="submit">Submit Answer</button>
     </div>
-    
     <script src="script.js"></script>
 </body>
 </html>
