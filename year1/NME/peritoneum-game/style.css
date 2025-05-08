@@ -2,6 +2,11 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     padding: 20px;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    color: #2c3e50;
 }
 
 #game-container {
@@ -11,6 +16,7 @@ body {
     position: relative;
     background-color: #f0f0f0;
     border: 2px solid #333;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
 #board {
@@ -34,11 +40,12 @@ body {
 #player {
     width: 20px;
     height: 20px;
-    background-color: red;
+    background-color: #e74c3c;
     border-radius: 50%;
     position: absolute;
     transition: all 0.5s;
     z-index: 10;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
 .snake {
@@ -59,19 +66,23 @@ body {
     border: 2px solid #333;
     z-index: 100;
     width: 300px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
 
 #roll-btn {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4CAF50;
+    background-color: #2ecc71;
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 #roll-btn:hover {
-    background-color: #45a049;
+    background-color: #27ae60;
 }
 
 .option-btn {
@@ -80,4 +91,34 @@ body {
     padding: 8px;
     margin: 5px 0;
     cursor: pointer;
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
+    border-radius: 3px;
+    transition: all 0.2s;
+}
+
+.option-btn:hover {
+    background-color: #d6eaf8;
+}
+
+#submit {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#submit:hover {
+    background-color: #2980b9;
+}
+
+.snake-mark, .ladder-mark {
+    position: absolute;
+    font-size: 20px;
+    bottom: 2px;
+    right: 2px;
 }
