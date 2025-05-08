@@ -10,24 +10,52 @@ let playerPosition = 0;
 const player = document.createElement('div');
 player.classList.add('player');
 
-// Create board
+// 🐍 Snakes: if you land here and get it wrong, you slide down
+const snakes = {
+  92: 6,
+  83: 5,
+  94: 20,
+  86: 3,
+  69: 4,
+  70: 1,
+  89: 2,
+  96: 7,
+  99: 8,
+  97: 9
+};
+
+// 🪜 Ladders: if you land here and get it right, you climb up
+const ladders = {
+  2: 41,
+  5: 43,
+  6: 48,
+  7: 45,
+  8: 47,
+  10: 49,
+  11: 50,
+  12: 51,
+  13: 52,
+  14: 53
+};
+
+// 🎲 Create the board
 for (let i = 99; i >= 0; i--) {
   const cell = document.createElement('div');
   cell.classList.add('cell');
-  if ((i + 1) % 9 === 0) cell.classList.add('snake');
-  if ((i + 1) % 10 === 0) cell.classList.add('ladder');
+  if (snakes[i + 1]) cell.classList.add('snake');
+  if (ladders[i + 1]) cell.classList.add('ladder');
   cell.textContent = i + 1;
   board.appendChild(cell);
 }
 board.children[99].appendChild(player);
 
-// Load questions
+// 📚 Load questions
 let questions = [];
 fetch('questions.json')
   .then(res => res.json())
   .then(data => questions = data);
 
-// Dice roll
+// 🎲 Roll the dice
 rollDice.addEventListener('click', () => {
   const roll = Math.floor(Math.random() * 6) + 1;
   playerPosition += roll;
@@ -39,6 +67,7 @@ rollDice.addEventListener('click', () => {
   showQuestion();
 });
 
+// 🧍 Move the player
 function movePlayer() {
   const cells = document.querySelectorAll('.cell');
   cells.forEach(cell => {
@@ -47,30 +76,42 @@ function movePlayer() {
   cells[99 - playerPosition].appendChild(player);
 }
 
+// ❓ Show a question
 function showQuestion() {
   const q = questions[Math.floor(Math.random() * questions.length)];
   questionText.textContent = q.question;
   options.innerHTML = '';
+
+  const currentTile = playerPosition + 1;
+  const isSnake = snakes[currentTile];
+  const isLadder = ladders[currentTile];
+
   q.options.forEach(opt => {
     const btn = document.createElement('button');
     btn.textContent = opt;
     btn.onclick = () => {
       if (opt === q.answer) {
         alert('✅ Correct!\n' + q.explanation);
+        if (isLadder) {
+          playerPosition = ladders[currentTile] - 1;
+        }
       } else {
         alert('❌ Incorrect.\n' + q.explanation);
-        playerPosition -= 3;
-        if (playerPosition < 0) playerPosition = 0;
-        movePlayer();
+        if (isSnake) {
+          playerPosition = snakes[currentTile] - 1;
+        }
       }
+      movePlayer();
       hidePopup();
     };
     options.appendChild(btn);
   });
+
   overlay.style.display = 'block';
   questionPopup.style.display = 'block';
 }
 
+// ❌ Hide the popup
 function hidePopup() {
   questionPopup.style.display = 'none';
   overlay.style.display = 'none';
