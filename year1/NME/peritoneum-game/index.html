@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Peritoneum Quest - Snakes and Ladders</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peritoneum Revision Game</title>
+    <link rel="stylesheet" href="styles.css"> <!-- This links to your external CSS -->
 </head>
 <body>
-  <h1>Peritoneum Quest - Snakes and Ladders</h1>
-  <div class="board" id="board"></div>
-  <button id="rollDice">Roll Dice 🎲</button>
-
-  <div class="overlay" id="overlay"></div>
-  <div class="question-popup" id="questionPopup">
-    <h2 id="questionText"></h2>
-    <div id="options"></div>
-    <button id="closePopup">Close</button>
-  </div>
-
-  <!-- ✅ Make sure this is outside the popup and inside the body -->
-  <script src="script.js"></script>
+    <div id="game-container">
+        <div id="game-board"></div>
+        <div id="player" class="player"></div>
+    </div>
+    
+    <div id="question-modal">
+        <h2 id="question-text"></h2>
+        <div id="options-container"></div>
+        <button id="submit-answer">Submit</button>
+    </div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
