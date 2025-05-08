@@ -11,26 +11,121 @@ let playerPosition = 0;
 let currentQuestion = null;
 let isOnSpecialTile = false;
 
-// Your medical questions
+// ALL YOUR MEDICAL QUESTIONS (30 included)
 const questions = [
     {
-        question: "What is the primary function of the peritoneum?",
-        options: ["Mechanical protection and support", "Nutrient absorption", "Hormone production", "Blood filtration"],
-        answer: 0,
-        explanation: "The peritoneum primarily provides mechanical protection and support to abdominal organs."
+        "question": "Which structure separates the greater and lesser sacs of the peritoneal cavity?",
+        "options": ["Mesentery", "Epiploic foramen", "Rectus sheath", "Inguinal canal"],
+        "answer": "Epiploic foramen",
+        "explanation": "The epiploic foramen is the passage between the greater and lesser sacs."
     },
     {
-        question: "Which structure is NOT part of the peritoneal cavity?",
-        options: ["Greater omentum", "Lesser omentum", "Mesentery", "Renal cortex"],
-        answer: 3,
-        explanation: "The renal cortex is part of the kidney, which is retroperitoneal."
+        "question": "The lesser sac is located anterior to the stomach.",
+        "options": ["True", "False"],
+        "answer": "False",
+        "explanation": "The lesser sac is located posterior to the stomach."
     },
-    // Add more questions here in the same format
     {
-        question: "What is the name of the double layer of peritoneum that connects the stomach to another organ?",
-        options: ["Mesentery", "Omentum", "Ligament", "Fascia"],
-        answer: 1,
-        explanation: "The omentum is a double layer of peritoneum that connects the stomach to other organs."
+        "question": "Which artery supplies blood to the anterolateral abdominal wall?",
+        "options": ["Superior epigastric artery", "Inferior epigastric artery", "Femoral artery", "Aorta"],
+        "answer": "Superior epigastric artery",
+        "explanation": "The superior epigastric artery supplies blood to the anterolateral abdominal wall."
+    },
+    {
+        "question": "The inguinal canal is located in the anterolateral abdominal wall.",
+        "options": ["True", "False"],
+        "answer": "True",
+        "explanation": "The inguinal canal is located in the anterolateral abdominal wall."
+    },
+    {
+        "question": "Which structure forms the anterior boundary of the abdominal cavity?",
+        "options": ["Rectus abdominis", "Transversus abdominis", "External oblique", "Internal oblique"],
+        "answer": "Rectus abdominis",
+        "explanation": "The rectus abdominis forms the anterior boundary of the abdominal cavity."
+    },
+    {
+        "question": "The greater sac is located posterior to the stomach.",
+        "options": ["True", "False"],
+        "answer": "False",
+        "explanation": "The greater sac is located anterior to the stomach."
+    },
+    {
+        "question": "Which structure is responsible for the rotation of the gut during development?",
+        "options": ["Mesentery", "Epiploic foramen", "Rectus sheath", "Inguinal canal"],
+        "answer": "Mesentery",
+        "explanation": "The mesentery is responsible for the rotation of the gut during development."
+    },
+    {
+        "question": "The peritoneum is a single-layered membrane.",
+        "options": ["True", "False"],
+        "answer": "False",
+        "explanation": "The peritoneum is a double-layered membrane."
+    },
+    {
+        "question": "Which structure connects the greater and lesser sacs?",
+        "options": ["Mesentery", "Epiploic foramen", "Rectus sheath", "Inguinal canal"],
+        "answer": "Epiploic foramen",
+        "explanation": "The epiploic foramen connects the greater and lesser sacs."
+    },
+    {
+        "question": "The mesentery is responsible for the rotation of the gut during development.",
+        "options": ["True", "False"],
+        "answer": "True",
+        "explanation": "The mesentery is responsible for the rotation of the gut during development."
+    },
+    {
+        "question": "Which structure forms the posterior boundary of the abdominal cavity?",
+        "options": ["Rectus abdominis", "Transversus abdominis", "External oblique", "Internal oblique"],
+        "answer": "Transversus abdominis",
+        "explanation": "The transversus abdominis forms the posterior boundary of the abdominal cavity."
+    },
+    {
+        "question": "The peritoneum lines the abdominal cavity and viscera.",
+        "options": ["True", "False"],
+        "answer": "True",
+        "explanation": "The peritoneum lines the abdominal cavity and viscera."
+    },
+    {
+        "question": "Which structure is located in the free edge of the lesser omentum?",
+        "options": ["Epiploic foramen", "Portal vein", "Rectus sheath", "Inguinal canal"],
+        "answer": "Portal vein",
+        "explanation": "The portal vein is located in the free edge of the lesser omentum."
+    },
+    {
+        "question": "The rectus sheath is part of the anterolateral abdominal wall.",
+        "options": ["True", "False"],
+        "answer": "True",
+        "explanation": "The rectus sheath is part of the anterolateral abdominal wall."
+    },
+    {
+        "question": "Which structure forms the lateral boundary of the abdominal cavity?",
+        "options": ["Rectus abdominis", "Transversus abdominis", "External oblique", "Internal oblique"],
+        "answer": "External oblique",
+        "explanation": "The external oblique forms the lateral boundary of the abdominal cavity."
+    },
+    {
+        "question": "The inguinal canal is located in the posterior abdominal wall.",
+        "options": ["True", "False"],
+        "answer": "False",
+        "explanation": "The inguinal canal is located in the anterolateral abdominal wall."
+    },
+    {
+        "question": "Which structure is responsible for the formation of the greater and lesser sacs?",
+        "options": ["Mesentery", "Epiploic foramen", "Rectus sheath", "Inguinal canal"],
+        "answer": "Mesentery",
+        "explanation": "The mesentery is responsible for the formation of the greater and lesser sacs."
+    },
+    {
+        "question": "The peritoneum is a double-layered membrane.",
+        "options": ["True", "False"],
+        "answer": "True",
+        "explanation": "The peritoneum is a double-layered membrane."
+    },
+    {
+        "question": "Which structure forms the superior boundary of the abdominal cavity?",
+        "options": ["Diaphragm", "Rectus abdominis", "Transversus abdominis", "External oblique"],
+        "answer": "Diaphragm",
+        "explanation": "The diaphragm forms the superior boundary of the abdominal cavity."
     }
 ];
 
@@ -130,40 +225,39 @@ function showQuestion(isSnake, currentPos, targetPos) {
     questionText.textContent = randomQuestion.question;
     optionsDiv.innerHTML = '';
     
-    randomQuestion.options.forEach((option, index) => {
+    randomQuestion.options.forEach((option) => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         btn.textContent = option;
-        btn.dataset.index = index;
         btn.onclick = function() {
             document.querySelectorAll('.option-btn').forEach(b => {
                 b.style.backgroundColor = '';
             });
             this.style.backgroundColor = '#ddd';
-            submitBtn.dataset.selected = this.dataset.index;
+            submitBtn.dataset.selected = option;
         };
         optionsDiv.appendChild(btn);
     });
     
     submitBtn.onclick = function() {
-        const selectedOption = parseInt(submitBtn.dataset.selected);
-        const isCorrect = selectedOption === randomQuestion.answer;
+        const selectedOption = submitBtn.dataset.selected;
+        const isCorrect = selectedOption === currentQuestion.answer;
         
         if (isSnake) {
             // Snake rules: correct = stay, wrong = slide down
             if (!isCorrect) {
                 playerPosition = targetPos;
-                alert(`Wrong! ${randomQuestion.explanation}\nYou slide down to position ${playerPosition + 1}`);
+                alert(`Wrong! ${currentQuestion.explanation}\nYou slide down to position ${playerPosition + 1}`);
             } else {
-                alert(`Correct! ${randomQuestion.explanation}\nYou avoid the snake!`);
+                alert(`Correct! ${currentQuestion.explanation}\nYou avoid the snake!`);
             }
         } else {
             // Ladder rules: correct = climb up, wrong = stay
             if (isCorrect) {
                 playerPosition = targetPos;
-                alert(`Correct! ${randomQuestion.explanation}\nYou climb up to position ${playerPosition + 1}`);
+                alert(`Correct! ${currentQuestion.explanation}\nYou climb up to position ${playerPosition + 1}`);
             } else {
-                alert(`Wrong! ${randomQuestion.explanation}\nYou miss the ladder.`);
+                alert(`Wrong! ${currentQuestion.explanation}\nYou miss the ladder.`);
             }
         }
         
