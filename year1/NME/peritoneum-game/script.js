@@ -1,27 +1,73 @@
+
 const board = document.getElementById('board');
-const message = document.getElementById('message');
-const rollDiceButton = document.getElementById('rollDice');
+const rollDice = document.getElementById('rollDice');
+const questionPopup = document.getElementById('questionPopup');
+const questionText = document.getElementById('questionText');
+const options = document.getElementById('options');
+const closePopup = document.getElementById('closePopup');
+const overlay = document.getElementById('overlay');
+
 let playerPosition = 0;
+const player = document.createElement('div');
+player.classList.add('player');
 
-function createBoard() {
-  for (let i = 0; i < 100; i++) {
-    const cell = document.createElement('div');
-    cell.textContent = i + 1;
-    board.appendChild(cell);
+// Create board
+for (let i = 99; i >= 0; i--) {
+  const cell = document.createElement('div');
+  cell.classList.add('cell');
+  cell.textContent = i + 1;
+  board.appendChild(cell);
+}
+board.children[99].appendChild(player);
+
+// Load questions
+let questions = [];
+fetch('questions.json')
+  .then(res => res.json())
+  .then(data => questions = data);
+
+// Dice roll
+rollDice.addEventListener('click', () => {
+  const roll = Math.floor(Math.random() * 6) + 1;
+  playerPosition += roll;
+  if (playerPosition >= 99) {
+    playerPosition = 99;
+    alert("🎉 You've completed the Peritoneum Quest!");
   }
+  movePlayer();
+  if ((playerPosition + 1) % 5 === 0) {
+    showQuestion();
+  }
+});
+
+function movePlayer() {
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach(cell => {
+    if (cell.contains(player)) cell.removeChild(player);
+  });
+  cells[99 - playerPosition].appendChild(player);
 }
 
-function rollDice() {
-  const diceRoll = Math.floor(Math.random() * 6) + 1;
-  playerPosition += diceRoll;
-  if (playerPosition >= 100) {
-    playerPosition = 100;
-    message.textContent = 'You reached the end!';
-    rollDiceButton.disabled = true;
-  } else {
-    message.textContent = `You rolled a ${diceRoll}. Now on square ${playerPosition}.`;
-  }
+function showQuestion() {
+  const q = questions[Math.floor(Math.random() * questions.length)];
+  questionText.textContent = q.question;
+  options.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.textContent = opt;
+    btn.onclick = () => {
+      alert(opt === q.answer ? '✅ Correct!\n' + q.explanation : '❌ Incorrect.\n' + q.explanation);
+      hidePopup();
+    };
+    options.appendChild(btn);
+  });
+  overlay.style.display = 'block';
+  questionPopup.style.display = 'block';
 }
 
-rollDiceButton.addEventListener('click', rollDice);
-createBoard();
+function hidePopup() {
+  questionPopup.style.display = 'none';
+  overlay.style.display = 'none';
+}
+
+closePopup.addEventListener('click', hidePopup);
