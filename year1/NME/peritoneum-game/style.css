@@ -1,4 +1,4 @@
-/* styles.css */
+/* Simple board styles */
 #game-container {
     width: 600px;
     height: 600px;
@@ -11,7 +11,6 @@
     height: 100%;
     background-color: #f0f0f0;
     position: relative;
-    overflow: hidden;
     border: 2px solid #333;
 }
 
@@ -34,61 +33,41 @@
     background-color: red;
     position: absolute;
     z-index: 10;
-    transition: all 0.5s ease;
 }
 
-.ladder {
-    position: absolute;
-    background-image: url('ladder.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: 5;
-}
-
+/* SIMPLE SNAKES (green squiggly lines) */
 .snake {
     position: absolute;
-    background-image: url('snake.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+    background: repeating-linear-gradient(
+        to right,
+        #4CAF50,
+        #4CAF50 10px,
+        #45a049 10px,
+        #45a049 20px
+    );
     z-index: 5;
+    border-radius: 20px;
 }
 
-#question-modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border: 2px solid #333;
-    z-index: 100;
-}
-
-#question-modal h2 {
-    margin-top: 0;
-}
-
-#options-container div {
-    margin: 5px;
-    padding: 5px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-}
-
-#options-container div:hover {
-    background-color: #f0f0f0;
-}
-
-#submit-answer {
-    margin-top: 10px;
-    padding: 8px 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-#submit-answer:hover {
-    background-color: #45a049;
+/* SIMPLE LADDERS (brown with rungs) */
+.ladder {
+    position: absolute;
+    background: linear-gradient(
+        90deg,
+        #8B4513 0%,
+        #8B4513 20%,
+        #FFF 20%,
+        #FFF 25%,
+        #8B4513 25%,
+        #8B4513 45%,
+        #FFF 45%,
+        #FFF 50%,
+        #8B4513 50%,
+        #8B4513 70%,
+        #FFF 70%,
+        #FFF 75%,
+        #8B4513 75%,
+        #8B4513 100%
+    );
+    z-index: 5;
 }
