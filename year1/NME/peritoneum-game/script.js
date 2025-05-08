@@ -1,7 +1,7 @@
 let loadedQuestions = [];
 
 async function loadQuestions() {
-  const res = await fetch('questions.json');  // File must be renamed to questions.json and placed in the root/public folder
+  const res = await fetch('./questions.json');
   loadedQuestions = await res.json();
 }
 
