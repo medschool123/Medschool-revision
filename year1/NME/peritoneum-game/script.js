@@ -91,17 +91,18 @@ function showQuestion() {
     btn.textContent = opt;
     btn.onclick = () => {
       if (opt === q.answer) {
-        alert('✅ Correct!\n' + q.explanation);
+        alert('✅ Correct!
+' + q.explanation);
         if (isLadder) {
-          playerPosition = ladders[currentTile] - 1;
+          animatePlayerMove(currentTile, ladders[currentTile]);
         }
       } else {
-        alert('❌ Incorrect.\n' + q.explanation);
+        alert('❌ Incorrect.
+' + q.explanation);
         if (isSnake) {
-          playerPosition = snakes[currentTile] - 1;
+          animatePlayerMove(currentTile, snakes[currentTile]);
         }
       }
-      movePlayer();
       hidePopup();
     };
     options.appendChild(btn);
@@ -109,6 +110,18 @@ function showQuestion() {
 
   overlay.style.display = 'block';
   questionPopup.style.display = 'block';
+}
+
+// 🧍 Animate player movement
+function animatePlayerMove(start, end) {
+  const step = start < end ? 1 : -1;
+  const interval = setInterval(() => {
+    playerPosition += step;
+    movePlayer();
+    if (playerPosition + 1 === end) {
+      clearInterval(interval);
+    }
+  }, 300);
 }
 
 // ❌ Hide the popup
