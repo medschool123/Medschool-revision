@@ -65,12 +65,15 @@ function createBoard() {
     }
 }
 
+let correctAnswer = "";
+
 function displayQuestion() {
     const currentQuestion = questions[currentQuestionIndex];
     questionElement.innerText = currentQuestion.question;
 
     // Shuffle the options
     const shuffledOptions = [...currentQuestion.options].sort(() => Math.random() - 0.5);
+    correctAnswer = currentQuestion.answer; // store the correct answer
 
     optionsElement.innerHTML = '';
     shuffledOptions.forEach(option => {
@@ -78,21 +81,21 @@ function displayQuestion() {
         button.innerText = option;
         button.addEventListener('click', () => checkAnswer(option));
         optionsElement.appendChild(button);
-
     });
 }
 
 function checkAnswer(selectedOption) {
-    const currentQuestion = questions[currentQuestionIndex];
-    if (selectedOption === currentQuestion.answer) {
+    if (selectedOption === correctAnswer) {
         alert('Correct answer!');
         playerPosition += 1;
-        currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+        currentQuestionIndex = Math.floor(Math.random() * questions.length);
         updateBoard();
+        displayQuestion();
     } else {
         alert('Incorrect answer. Try again.');
     }
-    displayQuestion();
+}
+
 }
 
 function updateBoard() {
