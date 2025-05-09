@@ -68,12 +68,17 @@ function createBoard() {
 function displayQuestion() {
     const currentQuestion = questions[currentQuestionIndex];
     questionElement.innerText = currentQuestion.question;
+
+    // Shuffle the options
+    const shuffledOptions = [...currentQuestion.options].sort(() => Math.random() - 0.5);
+
     optionsElement.innerHTML = '';
-    currentQuestion.options.forEach(option => {
+    shuffledOptions.forEach(option => {
         const button = document.createElement('button');
         button.innerText = option;
         button.addEventListener('click', () => checkAnswer(option));
         optionsElement.appendChild(button);
+
     });
 }
 
